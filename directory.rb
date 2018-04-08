@@ -1,22 +1,28 @@
-# The main file - the directory
+# The main file - the directory.
 
-# Defining the total student count
-student_count = 11
+# Array of the students.
+students = [
+  "Dr. Hannibal Lecter",
+  "Darth Vader",
+  "Nurse Ratched",
+  "Michael Corleone",
+  "Alex DeLarge",
+  "The Wicked Witch of the West",
+  "Terminator",
+  "Freddy Krueger",
+  "The Joker",
+  "Joffrey Baratheon",
+  "Norman Bates"
+]
 
-# Printing (puts) the list of students to the console.
+# Welcome text for the directory.
 puts "The students of Villains Academy"
 puts "----------"
-puts "Dr. Hannibal Lecter"
-puts "Darth Vader"
-puts "Nurse Ratched"
-puts "Michael Corleone"
-puts "Alex DeLarge"
-puts "The Wicked Witch of the West"
-puts "Terminator"
-puts "Freddy Krueger"
-puts "The Joker"
-puts "Joffrey Baratheon"
-puts "Norman Bates"
 
-# Then we print the total number of students.
-puts "Overall, we have #{student_count} great students"
+# Printing the list of students to the console.
+students.each do |student|
+  puts student
+end
+
+# Then printing the total number of students.
+puts "Overall, we have #{students.count} great students"
