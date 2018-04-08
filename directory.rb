@@ -15,14 +15,24 @@ students = [
   "Norman Bates"
 ]
 
-# Welcome text for the directory.
-puts "The students of Villains Academy"
-puts "----------"
-
-# Printing the list of students to the console.
-students.each do |student|
-  puts student
+# Method for the welcome text of the directory.
+def print_header
+  puts "The students of Villains Academy"
+  puts "----------"
 end
 
-# Then printing the total number of students.
-puts "Overall, we have #{students.count} great students"
+# Method for printing a list to the console.
+def print(names)
+  names.each do |name|
+    puts name
+  end
+end
+
+# Method for footer of the directory
+def print_footer(names)
+  puts "Overall, we have #{names.count} great students"
+end
+
+print_header
+print(students)
+print_footer(students)
