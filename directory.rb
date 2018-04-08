@@ -1,7 +1,9 @@
 # The main file - the directory
 
-# First we print (puts) the list of students to the console.
+# Defining the total student count
+student_count = 11
 
+# Printing (puts) the list of students to the console.
 puts "The students of Villains Academy"
 puts "----------"
 puts "Dr. Hannibal Lecter"
@@ -17,7 +19,4 @@ puts "Joffrey Baratheon"
 puts "Norman Bates"
 
 # Then we print the total number of students.
-
-print "Overall, we have "
-print 11
-puts " great students"
+puts "Overall, we have #{student_count} great students"
