@@ -4,10 +4,34 @@
 @width = 43
 
 def interactive_menu
-  # 1 - print the menu and ask the user what to do
-  # 2 - read the input and save it into a variable
-  # 3 - do what the user has asked
-  # 4 - repeat from step 1
+  students = []
+  loop do
+    # 1 - print the menu and ask the user what to do
+    puts "---------------"
+    puts "Options:"
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    # 2 - read the input and save it into a variable
+    selection = gets.chomp
+    # 3 - do what the user has asked
+    case selection
+    when "1"
+      # Input the students
+      students = input_students # Change input_students to dumby_students for quick testing
+
+    when "2"
+      # Show the students
+      print_header
+      print_students(students)
+      print_footer(students)
+
+    when "9"
+      exit # This will exit the problem... Like you couldn't have worked that out.
+    else
+      puts "I don't know what you meant, try again."
+    end
+  end
 end
 
 # Method for adding students through the command line.
@@ -15,7 +39,7 @@ def input_students
   puts "Add the students to the directory"
   puts "To finish, just hit return twice"
   # Create empty array
-  students = []
+  holding_array = []
   # while the name is not empty, repeat this code
   while true do
     # Get the name
@@ -32,14 +56,14 @@ def input_students
       cohort = :January if cohort.empty?
       hero = "Not provided" if hero.empty?
       # Add the student to the array
-      students << {name: name, cohort: cohort, hero: hero}
-      puts "Now we have #{students.count} " + (students.count > 1 ? "students" : "student")
+      holding_array << {name: name, cohort: cohort, hero: hero}
+      puts "Now we have #{holding_array.count} " + (holding_array.count > 1 ? "students" : "student")
     else
       # Break out of the loop if user input is blank
       break
     end
   end
-  students
+  holding_array
 end
 
 # Called for testing rather than the above method
@@ -68,7 +92,8 @@ end
 def print_students(students)
 
   if students.empty?
-    puts "Villains Academy is empty. :("
+    puts "Villains Academy is empty. :(".center(@width)
+    puts
     return
   end
 
@@ -96,12 +121,5 @@ def print_footer(names)
   puts
 end
 
-# Calling the above methods
-
-print_header
-
-students = input_students # Change input_students to dumby_students for quick testing
-
-print_students(students)
-
-print_footer(students)
+# Calling the menu function
+interactive_menu
