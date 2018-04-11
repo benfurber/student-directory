@@ -42,12 +42,24 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def try_loading_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exist?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort, hero = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym, hero: hero}
@@ -153,5 +165,7 @@ def print_footer
   puts
 end
 
-# Calling the menu function
+# Calling the menu functions
+
+try_loading_students
 interactive_menu
