@@ -46,25 +46,15 @@ def interactive_menu
   end
 end
 
-def try_loading_students
-  filename = ARGV.first
+def load_students(filename = 'students.csv')
   return if filename.nil?
-  if File.exist?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry, #{filename} doesn't exist."
-    exit
-  end
-end
-
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  file = File.open(filename, 'r')
   file.readlines.each do |line|
     name, cohort, hero = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym, hero: hero}
+    student_to_array(name, cohort, hero)
   end
   file.close
+  puts "Loaded #{@students.count} from #{filename}"
 end
 
 # Method for adding students through the command line.
@@ -73,27 +63,26 @@ def input_students
   puts "To finish, just hit return twice"
   # while the name is not empty, repeat this code
   while true do
-    # Get the name
     print "Name: "
-    name = gets.strip.capitalize
+    name = STDIN.gets.strip.capitalize
     if name.empty? == false
       # Then ask for the cohort
       print "Cohort: "
-      cohort = gets.chomp.capitalize.to_s
-      # Then ask for their hero
+      cohort = STDIN.gets.chomp.capitalize.to_s
       print "Hero: "
-      hero = gets.chomp
-      # Adding default values to student info if left blank by the user.
+      hero = STDIN.gets.chomp
       cohort = :January if cohort.empty?
       hero = "Not provided" if hero.empty?
-      # Add the student to the array
-      @students << {name: name, cohort: cohort, hero: hero}
+      student_to_array(name, cohort, hero)
       puts "Now we have #{@students.count} " + (@students.count > 1 ? "students" : "student")
     else
-      # Break out of the loop if user input is blank
       break
     end
   end
+end
+
+def student_to_array(name, cohort, hero)
+  @students << { name: name, cohort: cohort.to_sym, hero: hero }
 end
 
 def save_students
@@ -167,5 +156,5 @@ end
 
 # Calling the menu functions
 
-try_loading_students
+load_students(ARGV.first)
 interactive_menu
