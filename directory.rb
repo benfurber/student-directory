@@ -1,5 +1,7 @@
 # The main file - the directory.
 
+require 'csv'
+
 # The students array - accessible to all methods
 @students = []
 
@@ -24,16 +26,11 @@ end
 
 def process(input)
   case input
-  when "1"
-    input_students # Change input_students to dumby_students for quick testing
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit # This will exit the problem... Like you couldn't have worked that out.
+  when '1' then input_students
+  when '2' then show_students
+  when '3' then save_students
+  when '4' then load_students
+  when '9' then exit
   else
     puts "I don't know what you meant, try again."
   end
@@ -47,20 +44,17 @@ end
 
 def interactive_menu
   loop do
-    print @cohorts_list
     print_menu
     process(STDIN.gets.chomp)
   end
 end
 
-def load_students(filename = 'students.csv')
+def load_students(filename = "students.csv")
   return if filename.nil?
-  file = File.open(filename, 'r')
-  file.readlines.each do |line|
-    name, cohort, hero = line.chomp.split(',')
+  CSV.foreach(filename) do |row|
+    name, cohort, hero = row
     student_to_array(name, cohort, hero)
   end
-  file.close
   puts "Loaded #{@students.count} from #{filename}"
 end
 
