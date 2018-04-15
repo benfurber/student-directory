@@ -139,11 +139,7 @@ def print_footer
 end
 
 def read_source_code
-  File.open($0, 'r') do |file|
-    file.each_line do |line|
-      puts line
-    end
-  end
+  File.open($0, 'r') { |file| file.each_line { |line| puts line } }
 end
 
 # Calling the menu functions
