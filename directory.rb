@@ -3,6 +3,12 @@
 # The students array - accessible to all methods
 @students = []
 
+# Array of all the possible cohorts
+@cohorts_list = [
+  :January, :Feburary, :March, :April, :May, :June,
+  :July, :August, :September, :October, :November, :December
+]
+
 # Defining the width of the programme - used later on
 @width = 43
 
@@ -41,6 +47,7 @@ end
 
 def interactive_menu
   loop do
+    print @cohorts_list
     print_menu
     process(STDIN.gets.chomp)
   end
@@ -69,6 +76,7 @@ def input_students
       # Then ask for the cohort
       print "Cohort: "
       cohort = STDIN.gets.chomp.capitalize.to_s
+      @cohorts_list.push(cohort) if @cohorts_list.include(cohort) == false
       print "Hero: "
       hero = STDIN.gets.chomp
       cohort = :January if cohort.empty?
@@ -99,21 +107,6 @@ def save_students
   puts
 end
 
-# Called for testing rather than the above method
-dumby_students = [
-  {name: "Dr. Hannibal Lecter", cohort: :November, hero: "Himself"},
-  {name: "Darth Vader", cohort: :November, hero: "The empirer"},
-  {name: "Nurse Ratched", cohort: :Janurary, hero: "Order"},
-  {name: "Michael Corleone", cohort: :November, hero: "His father"},
-  {name: "Alex DeLarge", cohort: :Janurary, hero: "Oranges"},
-  {name: "The Wicked Witch of the West", cohort: :November, hero: "Sister"},
-  {name: "Terminator", cohort: :September, hero: "Guns"},
-  {name: "Freddy Krueger", cohort: :Janurary, hero: "Knives"},
-  {name: "The Joker", cohort: :Janurary, hero: "Batman"},
-  {name: "Joffrey Baratheon", cohort: :November, hero: "Himself"},
-  {name: "Norman Bates", cohort: :November, hero: "Alfred Hitchcock"}
-]
-
 # Method for the welcome text of the directory.
 def print_header
   puts
@@ -130,12 +123,7 @@ def print_students_list
     return
   end
 
-  # Array of all the possible cohorts
-  cohorts_list = [
-    :January, :Feburary, :March, :April, :May, :June,
-    :July, :August, :September, :October, :November, :December
-  ]
-  cohorts_list.each do |month|
+  @cohorts_list.each do |month|
     @students.each_with_index do |student, index|
       if student[:cohort] == month
         puts " #{student[:name]} (##{index + 1}) ".center(@width,"-")
