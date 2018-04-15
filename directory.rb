@@ -21,6 +21,7 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
+  puts "5. Read source code"
   puts "9. Exit"
 end
 
@@ -30,6 +31,7 @@ def process(input)
   when '2' then show_students
   when '3' then save_students
   when '4' then load_students
+  when '5' then read_source_code
   when '9' then exit
   else
     puts "I don't know what you meant, try again."
@@ -134,6 +136,14 @@ end
 def print_footer
   puts "Overall, we have #{@students.count} great students".center(@width, "-")
   puts
+end
+
+def read_source_code
+  File.open($0, 'r') do |file|
+    file.each_line do |line|
+      puts line
+    end
+  end
 end
 
 # Calling the menu functions
